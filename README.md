@@ -1,15 +1,16 @@
 # Description:
 
-We want to designaDate class to representa date using three integer numbers for day, month, and year. Our class will be named tDate. The class has twostatic attributes(earliestDate, latestDate) to represent the earliest and latest datesit can hold. These static attributes are stringscontain dates formatted as“mm/dd/yyyy”(using USdate formatting).The class can be instantiatedin two ways, the firstisusing three integer argumentsseparated by comma as (mm, dd, yyyy), and the secondis using string contains a date formatted as“mm/dd/yyyy”. Each object of thisclass type can show its dateformatted as either (US) mm/dd/yyyy or (Europe) dd/mm/yyyy according to an argument passed to its showDate()method.
+We want to design a Date class to representa date using three integer numbers for day, month, and year. Our class will be named `tDate`. The class has two static attributes(earliestDate, latestDate) to represent the earliest and latest dates it can hold. These static attributes are strings contain dates formatted as “mm/dd/yyyy” (using USdate formatting). The class can be instantiated in two ways, the firstisusing three integer arguments separated by comma as (mm, dd, yyyy), and the secondis using string contains a date formatted as“mm/dd/yyyy”. Each object of this class type can show its date formatted as either (US) mm/dd/yyyy or (Europe) dd/mm/yyyy according to an argument passed to its showDate() method.
 
 ## Tasks[1-4 for both CIDM4360and CIDM5360]:
 
->Write C# program that implementsthe date class described above according to thefollowing:   
-1. Declare theclass named tDatewith the appropriateprivate staticand non-static attributes, public constructors,and public methods. Make this class in a separate `.cs` file
-2. The class constructors must parse the passed arguments correctlyand do the following verification(s)before initializing the attributes(day,month,year)of the created object:-Verify that the arguments it received form a valid date(do just simple verification, like, `0 < days<=31, 0 < months <= 12, year > 0`). i.e. using (15,18,2010) should not be accepted as valid date because the month >12. Similarly, “15/18/2010”is not valid too. If the verification failed, the constructor should initializethe attributes(day,month,year) of the new object usingthe “earliestDate” datevalues. *Hint: The “earliestDate”attribute is a string, so you need to parse it to extract its day, month and year components using string split()method.*
-3. The showDatemethod should receive an argument to specify which format the method  should use to display the date(US or Europe), then prints the date according to the given format.The argument could be char(‘U’for US, ‘E’for Europe)or int (0 forUS, 1 for Europe) or a string.
-4. The main program method main()should do the following:  
-    - Set the static attributes (earliestDate, latestDate) of the tDateclass as“1/1/1900”, and “12/31/2100”respectively. 
+>Write C# program that implements the date class described above according to the following:   
+1. Declare the class named tDate with the appropriate private static and non-static attributes, public constructors, and public methods. Make this class in a separate `.cs` file
+2. The class constructors must parse the passed arguments correctly and do the following verification(s) before initializing the attributes(day,month,year) of the created object:
+    - Verify that the arguments it received form a valid date(do just simple verification, like, `0 < days<=31, 0 < months <= 12, year > 0`). i.e. using (15,18,2010) should not be accepted as valid date because the month >12. Similarly, “15/18/2010”is not valid too. If the verification failed, the constructor should initializethe attributes(day,month,year) of the new object usingthe “earliestDate” datevalues. *Hint: The “earliestDate”attribute is a string, so you need to parse it to extract its day, month and year components using string split()method.*
+3. The showDatemethod should receive an argument to specify which format the method  should use to display the date(US or Europe), then prints the date according to the given format.The argument could be char(‘U’ for US, ‘E’ for Europe) or int (0 for US, 1 for Europe) or a string.
+4. The main program method main() should do the following:  
+    - Set the static attributes (earliestDate, latestDate) of the tDateclass as “1/1/1900”, and “12/31/2100” respectively. 
     - instantiate the following objectsa s follows:
         - d1 using three integer values (12,15,1990)
         - d2 using the string (“12/15/1990”)
