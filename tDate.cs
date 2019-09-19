@@ -5,89 +5,75 @@ namespace Assignment_1
     {
         public static string earliestDate;
         public static string latestDate;
-        public static string userDate; 
-        public tDate()
+        public static string userDate = "1/1/2000"; 
+        public tDate(string earlyDate, string lateDate)
         {
-            earliestDate = "1/1/1900";
-            latestDate = "12/31/2100";
+            earliestDate = earlyDate;
+            latestDate = lateDate;
             userDate = "1/1/2000";
         }
-        public tDate(int day, int month, int year)
+        public tDate(int day, int month, int year, string earlyDate, string lateDate)
         {
-            userDate = dateAsIntToString(day, month, year);
+            earliestDate = earlyDate;
+            latestDate = lateDate;
+            userDate = dateAsIntToString(month, day, year);
         }
-        public tDate(string date)
+        public tDate(string date, string earlyDate, string lateDate)
         {
+            earliestDate = earlyDate; 
+            latestDate = lateDate; 
             userDate = parseDate(date);
         }
         private string parseDate(string date)
         {
             string[] dateAsArray = splitDate(date);
-            int counter = 0;
-            foreach (string num in dateAsArray)
+            int[] datesAsInt = new int[dateAsArray.Length];
+            for(int i = 0; i < dateAsArray.Length; i++)
             {
-                counter++;
-                if (Int32.TryParse(num, out int parsedNum))
+                if(int.TryParse(dateAsArray[i], out datesAsInt[i]))
                 {
-                    if (counter == 1)
-                    {
-                        parsedNum = verifyMonthRange(parsedNum);
-                        date += parsedNum.ToString();
-                    }
-                    else if (counter == 2)
-                    {
-                        parsedNum = verifyDayRange(parsedNum);
-                        date += parsedNum.ToString();
-                    }
-                    else if (counter == 31)
-                    {
-                        parsedNum = verifyYearRange(parsedNum);
-                        date += parsedNum.ToString(); 
-                    }
-                }
-                else if (parsedNum == -1 )
-                {
-                    Console.WriteLine("Error parsing input");
-                    return null; 
+
                 }
             }
+            date = dateAsIntToString(datesAsInt[0], datesAsInt[1], datesAsInt[2]);
             return date;
         }
         private int verifyYearRange(int date)
         {
-            if (date >= 1900 || date <= 2100)
+            int[] lateDate = convertStaticDates(latestDate);
+            int[] earlyDate = convertStaticDates(earliestDate);
+            if (date >= earlyDate[2] && date <= lateDate[2])
             {
                 return date;
             }
-            else
+            else 
             {
-                Console.WriteLine("Error: Date out of range. Year should be between 1900 and 2100");
-                return -1;
+                Console.WriteLine($"Error: Date out of range. Year should be between {earlyDate[2].ToString()} and {lateDate[2].ToString()}");
+                return date;
             }
-
         }
         private int verifyMonthRange(int date)
         {
-            if (date <= 12 || date >= 1)
+            if (date < 13 && date > 0)
             {
                 return date;
             }
             else
             {
                 Console.WriteLine("Error: Month out of range");
-                return -1;
+                return date;
             }
         }
         private int verifyDayRange(int date)
         {
-            if (date <= 31 || date >= 1)
+            if (date <= 31 || date > 0)
             {
                 return date;
             }
             else
             {
                 Console.WriteLine("Error: Date out of range");
-                return -1;
+                return date;
             }
         }
         // takes given date and splits it into array
@@ -139,27 +125,12 @@ namespace Assignment_1
                     return "Error parsing month";
             }
         }
-        private string dateAsIntToString(int day, int month, int year)
+        private string dateAsIntToString(int month, int day, int year)
         {
             day = verifyDayRange(day);
             month = verifyMonthRange(month);
             year = verifyYearRange(year);
-            if (day == -1)
-            {
-                Console.WriteLine("Error: Date out of range");
-                return null; 
-            }
-            else if (month == -1)
-            {
-                Console.WriteLine("Error: Date out of range");
-                return null; 
-            }
-             else if (year == -1)
-            {
-                Console.WriteLine("Error: Date out of range");
-                return null; 
-            }
-            return userDate = day.ToString() + "/" + month.ToString() + "/" + year.ToString();
+            return userDate = month.ToString() + "/" +  day.ToString()+ "/" + year.ToString();
         }
         public void showDate(string EuOrNa)
         {
@@ -170,7 +141,7 @@ namespace Assignment_1
                 case "EU":
                 case "Europe":
                 case "Eur":
-                    Console.WriteLine($"date: {buildEUDate(userDate)}"); 
+                    Console.WriteLine($"EU date: {buildEUDate(userDate)}"); 
                     break;
                 case "N":
                 case "NA":
@@ -185,7 +156,7 @@ namespace Assignment_1
         {
             if(EuOrNa == 0)
             {
-                Console.WriteLine($"date: {buildEUDate(userDate)}");
+                Console.WriteLine($"EU date: {buildEUDate(userDate)}");
             }
             else if ( EuOrNa == 1)
             {
@@ -200,10 +171,23 @@ namespace Assignment_1
         {
             string[] euDate = splitDate(userDate);
             string temp = euDate[1];
-            euDate[0] = euDate[1];
-            euDate[1] = temp; 
+            euDate[1] = euDate[0];
+            euDate[0] = temp; 
             userDate = euDate[0] + "/" + euDate[1] + "/" + euDate[2]; 
             return userDate; 
+        }
+        private int[] convertStaticDates(string earlyOrLateDate)
+        {
+            string[] dates = earlyOrLateDate.Split('/','-');
+            int[] intDate = new int[dates.Length];
+            for (int i = 0; i < dates.Length; i++)
+            {
+                if(int.TryParse(dates[i], out intDate[i]))
+                {
+
+                }
+            }
+            return intDate; 
         }
     }
 }
